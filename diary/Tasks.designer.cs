@@ -27,7 +27,11 @@ namespace diary
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
-		
+
+        public Table<Tasks> tableTasks
+        {
+            get { return GetTable<Tasks>(); }
+        }
     #region Определения метода расширяемости
     partial void OnCreated();
     partial void InsertTasks(Tasks instance);
