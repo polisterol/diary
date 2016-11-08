@@ -13,6 +13,10 @@ namespace diary
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            InitTables();
+        }
         private TasksDataContext __tasksDataContext;
         public TasksDataContext tasksDataContext
         {
@@ -36,7 +40,7 @@ namespace diary
             get { return __finished; }
             set { __finished = value; }
         }
-        private void InitTables()
+        public void InitTables()
         {
             var queryNotFinished = from c in tasksDataContext.tableTasks
                         where c.Status1.name != "finished"
@@ -50,6 +54,6 @@ namespace diary
                                 where c.Status1.name == "finished"
                                 select c;
             finished = queryFinished.ToList<Tasks>();
-        }
+        }   
     }
 }
