@@ -23,6 +23,7 @@ namespace diary
         public MainWindow()
         {
             InitializeComponent();
+            listBox.ItemsSource = App.notFinished;
         }
     }
 }
