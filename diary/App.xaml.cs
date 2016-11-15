@@ -15,45 +15,26 @@ namespace diary
     {
         public App()
         {
-            InitTables();
+            LoadTables();
         }
-        private TasksDataContext __tasksDataContext;
-        public TasksDataContext tasksDataContext
+        private static TasksDataContext tasksDataContext = new TasksDataContext();
+        public static List<Tasks> notFinished { get; set; }
+        public static List<Tasks> today { get; set; }
+        public static List<Tasks> finished { get; set; }
+        public void LoadTables()
         {
-            get { return __tasksDataContext; }
-        }
-        private List<Tasks> __notFinished;
-        public List<Tasks> notFinished
-        {
-            get{ return __notFinished; }
-            set { __notFinished = value; }
-        }
-        private List<Tasks> __today;
-        public List<Tasks> today
-        {
-            get { return __today; }
-            set { __today = value; }
-        }
-        private List<Tasks> __finished;
-        public List<Tasks> finished
-        {
-            get { return __finished; }
-            set { __finished = value; }
-        }
-        public void InitTables()
-        {
-            var queryNotFinished = from c in tasksDataContext.tableTasks
-                        where c.Status1.name != "finished"
-                        select c;
-            notFinished = queryNotFinished.ToList<Tasks>();
-            var queryToday = from c in tasksDataContext.tableTasks
-                             where c.Status1.name == "inTodayList"
-                             select c;
-            today = queryToday.ToList<Tasks>();
-            var queryFinished = from c in tasksDataContext.tableTasks
-                                where c.Status1.name == "finished"
-                                select c;
-            finished = queryFinished.ToList<Tasks>();
+            var queryNotFinished = from tb in tasksDataContext.tableTasks
+                        where tb.Status1.name.ToString() != "finished"
+                        select tb;
+            notFinished = queryNotFinished.ToList();
+            var queryToday = from tb in tasksDataContext.tableTasks
+                             where tb.Status1.name.Contains("inTodayList")
+                             select tb;
+            today = queryToday.ToList();
+            var queryFinished = from tb in tasksDataContext.tableTasks
+                                where tb.Status1.name.Contains("finished")
+                                select tb;
+            finished = queryFinished.ToList();
         }   
     }
 }
