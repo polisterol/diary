@@ -7,6 +7,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <ListBox x:Name="listBox">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding name}"></TextBlock>
+                        <TextBlock Text=" | "></TextBlock>
+                        <TextBlock Text="{Binding Status1.name}"></TextBlock>
+                        <TextBlock Text=" | "></TextBlock>
+                        <TextBlock Text="{Binding Priority1.name}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>
