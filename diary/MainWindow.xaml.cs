@@ -24,14 +24,14 @@ namespace diary
         {
             InitializeComponent();
             listBoxToday.ItemsSource = App.today;
-            listBoxInList.ItemsSource = App.notFinished;
+            listBoxInList.ItemsSource = App.inList;
             listBoxFinished.ItemsSource = App.finished;
         }
 
         private void addToday_Click(object sender, RoutedEventArgs e)
         {
             //Console.WriteLine();
-            App.today.Remove((Tasks)listBoxToday.SelectedItem);
+            //App.today.Remove((Tasks)listBoxToday.SelectedItem);
         }
 
         private void changeToday_Click(object sender, RoutedEventArgs e)
@@ -54,7 +54,7 @@ namespace diary
         }
         private void deleteInList_Click(object sender, RoutedEventArgs e)
         {
-
+            App.inList.Remove((Tasks)listBoxInList.SelectedItem);
         }
 
         private void addFinished_Click(object sender, RoutedEventArgs e)
