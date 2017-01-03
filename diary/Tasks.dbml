@@ -1,21 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="tasks" Class="TasksDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\tasks.mdf;Integrated Security=True" SettingsObjectName="diary.Properties.Settings" SettingsPropertyName="tasksConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Tasks" Member="Tasks">
-    <Type Name="Tasks">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Column Name="description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="priority" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Status_Tasks" Member="Status1" ThisKey="status" OtherKey="status1" Type="Status" IsForeignKey="true" />
-      <Association Name="Priority_Tasks" Member="Priority1" ThisKey="priority" OtherKey="priority1" Type="Priority" IsForeignKey="true" />
-    </Type>
-  </Table>
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\tasks.mdf;Integrated Security=True;Connect Timeout=30" SettingsObjectName="diary.Properties.Settings" SettingsPropertyName="tasksConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Status" Member="Status">
     <Type Name="Status">
       <Column Name="status" Member="status1" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Association Name="Status_Tasks" Member="Tasks" ThisKey="status1" OtherKey="status" Type="Tasks" />
+      <Association Name="Status_Tasks1" Member="Tasks" ThisKey="status1" OtherKey="status" Type="Tasks" />
     </Type>
   </Table>
   <Table Name="dbo.Priority" Member="Priority">
@@ -23,6 +12,18 @@
       <Column Name="priority" Member="priority1" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
       <Association Name="Priority_Tasks" Member="Tasks" ThisKey="priority1" OtherKey="priority" Type="Tasks" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tasks" Member="Tasks">
+    <Type Name="Tasks">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="priority" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="list" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="Status_Tasks1" Member="Status1" ThisKey="status" OtherKey="status1" Type="Status" IsForeignKey="true" />
+      <Association Name="Priority_Tasks" Member="Priority1" ThisKey="priority" OtherKey="priority1" Type="Priority" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

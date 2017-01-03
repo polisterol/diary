@@ -22,27 +22,23 @@ namespace diary
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="tasks")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Tasks")]
 	public partial class TasksDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
-
-        public Table<Tasks> tableTasks
-        {
-            get { return GetTable<Tasks>(); }
-        }
+		
     #region Определения метода расширяемости
     partial void OnCreated();
-    partial void InsertTasks(Tasks instance);
-    partial void UpdateTasks(Tasks instance);
-    partial void DeleteTasks(Tasks instance);
     partial void InsertStatus(Status instance);
     partial void UpdateStatus(Status instance);
     partial void DeleteStatus(Status instance);
     partial void InsertPriority(Priority instance);
     partial void UpdatePriority(Priority instance);
     partial void DeletePriority(Priority instance);
+    partial void InsertTasks(Tasks instance);
+    partial void UpdateTasks(Tasks instance);
+    partial void DeleteTasks(Tasks instance);
     #endregion
 		
 		public TasksDataContext() : 
@@ -75,14 +71,6 @@ namespace diary
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Tasks> Tasks
-		{
-			get
-			{
-				return this.GetTable<Tasks>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Status> Status
 		{
 			get
@@ -98,244 +86,12 @@ namespace diary
 				return this.GetTable<Priority>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tasks")]
-	public partial class Tasks : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _name;
-		
-		private string _description;
-		
-		private int _status;
-		
-		private int _priority;
-		
-		private EntityRef<Status> _Status1;
-		
-		private EntityRef<Priority> _Priority1;
-		
-    #region Определения метода расширяемости
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OndescriptionChanging(string value);
-    partial void OndescriptionChanged();
-    partial void OnstatusChanging(int value);
-    partial void OnstatusChanged();
-    partial void OnpriorityChanging(int value);
-    partial void OnpriorityChanged();
-    #endregion
-		
-		public Tasks()
-		{
-			this._Status1 = default(EntityRef<Status>);
-			this._Priority1 = default(EntityRef<Priority>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id
+		public System.Data.Linq.Table<Tasks> Tasks
 		{
 			get
 			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string description
-		{
-			get
-			{
-				return this._description;
-			}
-			set
-			{
-				if ((this._description != value))
-				{
-					this.OndescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._description = value;
-					this.SendPropertyChanged("description");
-					this.OndescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Int NOT NULL")]
-		public int status
-		{
-			get
-			{
-				return this._status;
-			}
-			set
-			{
-				if ((this._status != value))
-				{
-					if (this._Status1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnstatusChanging(value);
-					this.SendPropertyChanging();
-					this._status = value;
-					this.SendPropertyChanged("status");
-					this.OnstatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_priority", DbType="Int NOT NULL")]
-		public int priority
-		{
-			get
-			{
-				return this._priority;
-			}
-			set
-			{
-				if ((this._priority != value))
-				{
-					if (this._Priority1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnpriorityChanging(value);
-					this.SendPropertyChanging();
-					this._priority = value;
-					this.SendPropertyChanged("priority");
-					this.OnpriorityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Status_Tasks", Storage="_Status1", ThisKey="status", OtherKey="status1", IsForeignKey=true)]
-		public Status Status1
-		{
-			get
-			{
-				return this._Status1.Entity;
-			}
-			set
-			{
-				Status previousValue = this._Status1.Entity;
-				if (((previousValue != value) 
-							|| (this._Status1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Status1.Entity = null;
-						previousValue.Tasks.Remove(this);
-					}
-					this._Status1.Entity = value;
-					if ((value != null))
-					{
-						value.Tasks.Add(this);
-						this._status = value.status1;
-					}
-					else
-					{
-						this._status = default(int);
-					}
-					this.SendPropertyChanged("Status1");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Priority_Tasks", Storage="_Priority1", ThisKey="priority", OtherKey="priority1", IsForeignKey=true)]
-		public Priority Priority1
-		{
-			get
-			{
-				return this._Priority1.Entity;
-			}
-			set
-			{
-				Priority previousValue = this._Priority1.Entity;
-				if (((previousValue != value) 
-							|| (this._Priority1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Priority1.Entity = null;
-						previousValue.Tasks.Remove(this);
-					}
-					this._Priority1.Entity = value;
-					if ((value != null))
-					{
-						value.Tasks.Add(this);
-						this._priority = value.priority1;
-					}
-					else
-					{
-						this._priority = default(int);
-					}
-					this.SendPropertyChanged("Priority1");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+				return this.GetTable<Tasks>();
 			}
 		}
 	}
@@ -408,7 +164,7 @@ namespace diary
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Status_Tasks", Storage="_Tasks", ThisKey="status1", OtherKey="status")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Status_Tasks1", Storage="_Tasks", ThisKey="status1", OtherKey="status")]
 		public EntitySet<Tasks> Tasks
 		{
 			get
@@ -565,6 +321,270 @@ namespace diary
 		{
 			this.SendPropertyChanging();
 			entity.Priority1 = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tasks")]
+	public partial class Tasks : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _name;
+		
+		private string _description;
+		
+		private int _status;
+		
+		private int _priority;
+		
+		private string _list;
+		
+		private EntityRef<Status> _Status1;
+		
+		private EntityRef<Priority> _Priority1;
+		
+    #region Определения метода расширяемости
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnstatusChanging(int value);
+    partial void OnstatusChanged();
+    partial void OnpriorityChanging(int value);
+    partial void OnpriorityChanged();
+    partial void OnlistChanging(string value);
+    partial void OnlistChanged();
+    #endregion
+		
+		public Tasks()
+		{
+			this._Status1 = default(EntityRef<Status>);
+			this._Priority1 = default(EntityRef<Priority>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="Int NOT NULL")]
+		public int status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				if ((this._status != value))
+				{
+					if (this._Status1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnstatusChanging(value);
+					this.SendPropertyChanging();
+					this._status = value;
+					this.SendPropertyChanged("status");
+					this.OnstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_priority", DbType="Int NOT NULL")]
+		public int priority
+		{
+			get
+			{
+				return this._priority;
+			}
+			set
+			{
+				if ((this._priority != value))
+				{
+					if (this._Priority1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnpriorityChanging(value);
+					this.SendPropertyChanging();
+					this._priority = value;
+					this.SendPropertyChanged("priority");
+					this.OnpriorityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_list", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string list
+		{
+			get
+			{
+				return this._list;
+			}
+			set
+			{
+				if ((this._list != value))
+				{
+					this.OnlistChanging(value);
+					this.SendPropertyChanging();
+					this._list = value;
+					this.SendPropertyChanged("list");
+					this.OnlistChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Status_Tasks1", Storage="_Status1", ThisKey="status", OtherKey="status1", IsForeignKey=true)]
+		public Status Status1
+		{
+			get
+			{
+				return this._Status1.Entity;
+			}
+			set
+			{
+				Status previousValue = this._Status1.Entity;
+				if (((previousValue != value) 
+							|| (this._Status1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Status1.Entity = null;
+						previousValue.Tasks.Remove(this);
+					}
+					this._Status1.Entity = value;
+					if ((value != null))
+					{
+						value.Tasks.Add(this);
+						this._status = value.status1;
+					}
+					else
+					{
+						this._status = default(int);
+					}
+					this.SendPropertyChanged("Status1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Priority_Tasks", Storage="_Priority1", ThisKey="priority", OtherKey="priority1", IsForeignKey=true)]
+		public Priority Priority1
+		{
+			get
+			{
+				return this._Priority1.Entity;
+			}
+			set
+			{
+				Priority previousValue = this._Priority1.Entity;
+				if (((previousValue != value) 
+							|| (this._Priority1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Priority1.Entity = null;
+						previousValue.Tasks.Remove(this);
+					}
+					this._Priority1.Entity = value;
+					if ((value != null))
+					{
+						value.Tasks.Add(this);
+						this._priority = value.priority1;
+					}
+					else
+					{
+						this._priority = default(int);
+					}
+					this.SendPropertyChanged("Priority1");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }
