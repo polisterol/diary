@@ -23,18 +23,19 @@ namespace diary
         public static List<Tasks> finished { get; set; }
         public void LoadTables()
         {
-            var queryNotFinished = from tb in tasksDataContext.tableTasks
+            IEnumerable<Tasks> queryNotFinished = from tb in tasksDataContext.tableTasks
                         where tb.Status1.name.ToString() != "finished"
                         select tb;
             notFinished = queryNotFinished.ToList();
-            var queryToday = from tb in tasksDataContext.tableTasks
-                             where tb.Status1.name.Contains("inTodayList")
+            IEnumerable<Tasks> queryToday = from tb in tasksDataContext.tableTasks
+                             where tb.Status1.name.ToString() == "inTodayList"
                              select tb;
             today = queryToday.ToList();
-            var queryFinished = from tb in tasksDataContext.tableTasks
-                                where tb.Status1.name.Contains("finished")
+            IEnumerable<Tasks> queryFinished = from tb in tasksDataContext.tableTasks
+                                where tb.Status1.name.ToString() == "finished"
                                 select tb;
             finished = queryFinished.ToList();
+
         }   
     }
 }
