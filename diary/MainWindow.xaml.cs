@@ -23,7 +23,53 @@ namespace diary
         public MainWindow()
         {
             InitializeComponent();
-            listBox.ItemsSource = App.notFinished;
+            listBoxToday.ItemsSource = App.today;
+            listBoxInList.ItemsSource = App.notFinished;
+            listBoxFinished.ItemsSource = App.finished;
+        }
+
+        private void addToday_Click(object sender, RoutedEventArgs e)
+        {
+            //Console.WriteLine();
+            App.today.Remove((Tasks)listBoxToday.SelectedItem);
+        }
+
+        private void changeToday_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void deleteToday_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void addInList_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void changeInList_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void deleteInList_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void addFinished_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void changeFinished_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void deleteFinished_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
